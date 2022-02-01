@@ -4,8 +4,12 @@ on: push
 jobs:
   test:
     name: Test local sources
-    runs-on: ubuntu-latest
-
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Go 1.17.6
         uses: actions/setup-go@v2
@@ -13,12 +17,12 @@ jobs:
           go-version: 1.17.6
       - uses: actions/checkout@v2
       - name: Restore cache
-        uses: actions/cache@v2
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys:  ${{ runner.os }}-go-
+          uses: actions/cache@v2
+          with:
+            path: ~/go/pkg/mod
+            key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+            restore-keys: ${{ runner.os }}-go-
       - name: Get dependencies
-        run: go mod download
+        run: go mod download -x
       - name: Test
         run: go test ./...
