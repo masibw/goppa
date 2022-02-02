@@ -1,0 +1,15 @@
+?   	test	[no test files]
+=== RUN   TestAdd
+=== RUN   TestAdd/Can_add_up_two_numbers.
+    calc_test.go:35: Add() = 3, want 4
+=== RUN   TestAdd/Can_add_up_two_numbers(includes_negative_value).
+--- FAIL: TestAdd (2.00s)
+    --- FAIL: TestAdd/Can_add_up_two_numbers. (1.00s)
+    --- PASS: TestAdd/Can_add_up_two_numbers(includes_negative_value). (1.00s)
+=== RUN   TestMinus
+=== RUN   TestMinus/Can_subtract_b_from_a.
+--- PASS: TestMinus (0.00s)
+    --- PASS: TestMinus/Can_subtract_b_from_a. (0.00s)
+FAIL
+FAIL	test/math	2.096s
+FAIL

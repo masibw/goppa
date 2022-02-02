@@ -1,0 +1,13 @@
+?   	test	[no test files]
+=== RUN   TestAdd
+=== RUN   TestAdd/Can_add_up_two_numbers.
+=== RUN   TestAdd/Can_add_up_two_numbers(includes_negative_value).
+--- PASS: TestAdd (200.00s)
+    --- PASS: TestAdd/Can_add_up_two_numbers. (100.00s)
+    --- PASS: TestAdd/Can_add_up_two_numbers(includes_negative_value). (100.00s)
+=== RUN   TestMinus
+=== RUN   TestMinus/Can_subtract_b_from_a.
+--- PASS: TestMinus (0.00s)
+    --- PASS: TestMinus/Can_subtract_b_from_a. (0.00s)
+PASS
+ok  	test/math	200.343s

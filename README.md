@@ -12,12 +12,12 @@ It is recommended to use a CI tool such as Github Actions rather than running it
 
 Basically, it can be executed as follows.
 ```Bash
-go test ./... -json >> prev.json
+go test ./... -v > prev.txt
 
 // Suppose you make some changes.
 
-go test ./... -json >> current.json
-goppa -prev ./prev.json -current ./current.json 
+go test ./... -v > current.txt
+goppa --previous ./prev.txt --current ./current.txt
 ```
 
 ## Github Actions

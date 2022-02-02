@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/masibw/goppa/infrastructure/loader"
+	"github.com/masibw/goppa/usecase"
 	"github.com/urfave/cli/v2"
 	"log"
 	"os"
@@ -17,7 +19,7 @@ func main() {
 				Aliases: []string{
 					"p",
 				},
-				Usage:    "specify previous test output file.(json)",
+				Usage:    "specify previous test output file.(with -v option)",
 				Required: true,
 			},
 			&cli.StringFlag{
@@ -25,13 +27,21 @@ func main() {
 				Aliases: []string{
 					"c",
 				},
-				Usage:    "specify current test output file.(json)",
+				Usage:    "specify current test output file.(with -v option)",
 				Required: true,
 			},
 		},
 		Action: func(c *cli.Context) error {
-			fmt.Println(c.String("previous"), c.String("p"), c.String("current"))
-			return nil
+			l := loader.NewVerboseLoader()
+			diff := usecase.CompareWithPrev(c.String("previous"), c.String("current"), l)
+
+			if diff == nil {
+				return nil
+			}
+			for _, output := range diff {
+				fmt.Println(output)
+			}
+			return cli.Exit("", 1)
 		},
 	}
 
