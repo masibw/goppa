@@ -25,9 +25,11 @@ func CompareWithPrev(prevFileName string, currentFileName string, l loader.Loade
 	}
 
 	for _, testData := range currentTestData {
-		prevValue := prevTestMap[testData.Name]
-		if testData.Elapsed > prevValue*border {
-			diff = append(diff, fmt.Sprintf("'%s' is slower than previous. prev: %s, current: %s", testData.Name, strconv.FormatFloat(prevValue, 'f', -1, 64)+"s", strconv.FormatFloat(testData.Elapsed, 'f', -1, 64)+"s"))
+		if prevElapsed, exist := prevTestMap[testData.Name]; exist {
+			//TODO: move to valueobject's method.
+			if testData.Elapsed > prevElapsed*border {
+				diff = append(diff, fmt.Sprintf("'%s' is slower than previous. prev: %s, current: %s", testData.Name, strconv.FormatFloat(prevElapsed, 'f', -1, 64)+"s", strconv.FormatFloat(testData.Elapsed, 'f', -1, 64)+"s"))
+			}
 		}
 	}
 	return diff
