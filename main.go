@@ -32,6 +32,7 @@ func main() {
 			},
 		},
 		Action: func(c *cli.Context) error {
+			// TODO: how to deal with first run?(no previous test data) exit with code 0 (but has messages?)
 			l := loader.NewVerboseLoader()
 			diff := usecase.CompareWithPrev(c.String("previous"), c.String("current"), l)
 
