@@ -20,7 +20,7 @@ func main() {
 					"p",
 				},
 				Usage:    "specify previous test output file.(with -v option)",
-				Required: true,
+				Required: false,
 			},
 			&cli.StringFlag{
 				Name: "current",
