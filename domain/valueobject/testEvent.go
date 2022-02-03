@@ -6,8 +6,5 @@ type TestEvent struct {
 }
 
 func (t *TestEvent) IsSlowerThan(prev float64, border float64) bool {
-	if t.Elapsed > prev*border {
-		return true
-	}
-	return false
+	return t.Elapsed > prev*border
 }
