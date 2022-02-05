@@ -39,6 +39,7 @@ func main() {
 			if diff == nil {
 				return nil
 			}
+			fmt.Println("some tests are slower than previous.")
 			for _, output := range diff {
 				fmt.Println(output)
 			}
