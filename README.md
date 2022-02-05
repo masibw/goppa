@@ -113,15 +113,13 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.17.6
-      - name: dump context
-        run: echo '${{ toJSON(github) }}'
       - name: Install goppa
         run: go install github.com/masibw/goppa@latest
       - name: Load previous test result
         uses: actions/cache@v2
         with:
           key: test-${{ github.event.pull_request.base.sha }}
-          path: ./test-${{ github.base.sha }}.log
+          path: ./test-${{ github.event.pull_request.base.sha }}.log
       - name: Load current test result
         uses: actions/cache@v2
         with:
