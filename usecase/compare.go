@@ -27,8 +27,7 @@ func CompareWithPrev(prevFileName string, currentFileName string, l loader.Loade
 	for _, testData := range currentTestData {
 		if prevElapsed, exist := prevTestMap[testData.Name]; exist {
 			if testData.IsSlowerThan(prevElapsed, border) {
-				//TODO: Improve redundant output.
-				diff = append(diff, fmt.Sprintf("'%s' is slower than previous. prev: %s, current: %s", testData.Name, strconv.FormatFloat(prevElapsed, 'f', -1, 64)+"s", strconv.FormatFloat(testData.Elapsed, 'f', -1, 64)+"s"))
+				diff = append(diff, fmt.Sprintf("'%s', prev: %s, current: %s", testData.Name, strconv.FormatFloat(prevElapsed, 'f', -1, 64)+"s", strconv.FormatFloat(testData.Elapsed, 'f', -1, 64)+"s"))
 			}
 		}
 	}
