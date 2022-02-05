@@ -1,11 +1,9 @@
 package usecase
 
 import (
-	"errors"
 	"fmt"
 	"github.com/masibw/goppa/domain/loader"
 	"log"
-	"os"
 	"strconv"
 )
 
@@ -13,10 +11,7 @@ func CompareWithPrev(prevFileName string, currentFileName string, l loader.Loade
 	const border = 1.5
 	prevTestData, err := l.Load(prevFileName)
 	if err != nil {
-		// Ignore the previous test result not found error for the first run.
-		if !errors.Is(err, os.ErrNotExist) {
-			log.Fatal(err)
-		}
+		log.Fatal(err)
 	}
 
 	currentTestData, err := l.Load(currentFileName)
