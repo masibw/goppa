@@ -24,9 +24,9 @@ func TestCompareWithPrev(t *testing.T) {
 				currentFileName: "testdata/slower.txt",
 			},
 			wantDiff: []string{
-				"'TestAdd' is slower than previous. prev: 0s, current: 2s",
-				"'TestAdd/Can_add_up_two_numbers.' is slower than previous. prev: 0s, current: 1s",
-				"'TestAdd/Can_add_up_two_numbers(includes_negative_value).' is slower than previous. prev: 0s, current: 1s",
+				"'TestAdd', prev: 0s, current: 2s",
+				"'TestAdd/Can_add_up_two_numbers.', prev: 0s, current: 1s",
+				"'TestAdd/Can_add_up_two_numbers(includes_negative_value).', prev: 0s, current: 1s",
 			},
 		},
 		{
