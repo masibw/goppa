@@ -11,6 +11,7 @@ func TestCompareWithPrev(t *testing.T) {
 	type args struct {
 		prevFileName    string
 		currentFileName string
+		border          float64
 	}
 	tests := []struct {
 		name     string
@@ -22,6 +23,7 @@ func TestCompareWithPrev(t *testing.T) {
 			args: args{
 				prevFileName:    "testdata/prev.txt",
 				currentFileName: "testdata/slower.txt",
+				border:          1.5,
 			},
 			wantDiff: []string{
 				"'TestAdd', prev: 0s, current: 2s",
@@ -34,6 +36,16 @@ func TestCompareWithPrev(t *testing.T) {
 			args: args{
 				prevFileName:    "testdata/prev.txt",
 				currentFileName: "testdata/not-slower.txt",
+				border:          1.5,
+			},
+			wantDiff: nil,
+		},
+		{
+			name: "If it is less than border times, return nil.",
+			args: args{
+				prevFileName:    "testdata/prev.txt",
+				currentFileName: "testdata/slower.txt",
+				border:          1000.0,
 			},
 			wantDiff: nil,
 		},
@@ -41,7 +53,7 @@ func TestCompareWithPrev(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			l := loader.NewVerboseLoader()
-			assert.Equal(t, tt.wantDiff, CompareWithPrev(testdataDirPath+tt.args.prevFileName, testdataDirPath+tt.args.currentFileName, l))
+			assert.Equal(t, tt.wantDiff, CompareWithPrev(testdataDirPath+tt.args.prevFileName, testdataDirPath+tt.args.currentFileName, l, tt.args.border))
 		})
 	}
 }

@@ -30,11 +30,19 @@ func main() {
 				Usage:    "specify current test output file.(with -v option)",
 				Required: true,
 			},
+			&cli.Float64Flag{
+				Name: "border",
+				Aliases: []string{
+					"b",
+				},
+				Usage:    "specify how many times slower than before to be detected.",
+				Required: false,
+				Value:    1.5,
+			},
 		},
 		Action: func(c *cli.Context) error {
-			// TODO: how to deal with first run?(no previous test data) exit with code 0 (but has messages?)
 			l := loader.NewVerboseLoader()
-			diff := usecase.CompareWithPrev(c.String("previous"), c.String("current"), l)
+			diff := usecase.CompareWithPrev(c.String("previous"), c.String("current"), l, c.Float64("border"))
 
 			if diff == nil {
 				return nil
