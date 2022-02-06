@@ -25,7 +25,7 @@ jobs:
       - name: Get dependencies
         run: go mod download -x
       - name: Test
-        run: go test -v ./...  > ./test-${{ github.sha }}.log
+        run: go test -v ./...  |tee ./test-${{ github.sha }}.log
       - name: Save test results
         uses: actions/cache@v2
         with:
@@ -33,7 +33,7 @@ jobs:
           path: ./test-${{ github.sha }}.log
 
   goppa:
-    if: ${{ github.event_name }} == "pull_request"
+    if: ${{ github.event_name == "pull_request" }}
     needs: test
     runs-on: ubuntu-latest
     steps:
