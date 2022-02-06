@@ -7,8 +7,7 @@ import (
 	"strconv"
 )
 
-func CompareWithPrev(prevFileName string, currentFileName string, l loader.Loader) (diff []string) {
-	const border = 1.5
+func CompareWithPrev(prevFileName string, currentFileName string, l loader.Loader, border float64) (diff []string) {
 	prevTestData, err := l.Load(prevFileName)
 	if err != nil {
 		log.Fatal(err)

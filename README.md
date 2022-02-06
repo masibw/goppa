@@ -26,3 +26,12 @@ For example, to compare the results of the current main branch with the results 
 
 
 I'll write later.
+
+## Flags
+The following flags can be used.
+
+| Flag     | Alias | Description                                               | Default |
+|----------|-------|-----------------------------------------------------------|---------|
+| previous | p     | previous test output file.(with go test -v option)        | None    |
+| current  | c     | current test output file.(created with go test -v option) | None    |
+| border   | b     | how many times slower than before to be detected.         | 1.5     | 

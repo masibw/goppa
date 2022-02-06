@@ -41,6 +41,30 @@ func TestTestEvent_IsSlowerThan(t1 *testing.T) {
 			},
 			want: false,
 		},
+		{
+			name: "If prev value is 0.00s, treat as 0.01s.",
+			fields: fields{
+				Name:    "",
+				Elapsed: 0.01,
+			},
+			args: args{
+				prev:   0.00,
+				border: 1.5,
+			},
+			want: false,
+		},
+		{
+			name: "If prev value is 0.00s, treat as 0.01s.",
+			fields: fields{
+				Name:    "",
+				Elapsed: 0.02,
+			},
+			args: args{
+				prev:   0.00,
+				border: 1.5,
+			},
+			want: true,
+		},
 	}
 	for _, tt := range tests {
 		t1.Run(tt.name, func(t1 *testing.T) {
