@@ -29,6 +29,9 @@ GitHub Actions can be saved in a format such as test-{commit-hash} to compare wi
 
 In order to continuously compare the test results, we need to construct the following flow.
 
+- When a pull request is created, a test is performed, and then the results are compared using goppa.
+- When the pull request is merged, run the test again. (Because the hash of the latest commit will change)
+
 For the first run, we need to prepare the results of previous tests (e.g. main branch). So, add the following code and merge it into the main branch to create test results when pull request is merged.
 
 ```yaml
@@ -59,7 +62,7 @@ jobs:
       - name: Get dependencies
         run: go mod download -x
       - name: Test
-        run: go test -v ./...  > ./test-${{ github.sha }}.log
+        run: go test -v ./... |tee ./test-${{ github.sha }}.log
       - name: Save test results
         uses: actions/cache@v2
         with:
@@ -97,7 +100,7 @@ jobs:
       - name: Get dependencies
         run: go mod download -x
       - name: Test
-        run: go test -v ./...  > ./test-${{ github.sha }}.log
+        run: go test -v ./...  |tee ./test-${{ github.sha }}.log
       - name: Save test results
         uses: actions/cache@v2
         with:
@@ -105,7 +108,7 @@ jobs:
           path: ./test-${{ github.sha }}.log
 
   goppa:
-    if: ${{ github.event_name }} == "pull_request"
+    if: ${{ github.event_name == 'pull_request' }}
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -136,5 +139,3 @@ The following flags can be used.
 | previous | p     | previous test output file.(with go test -v option)        | None    |
 | current  | c     | current test output file.(created with go test -v option) | None    |
 | border   | b     | how many times slower than before to be detected.         | 1.5     | 
-- When a pull request is created, a test is performed, and then the results are compared using goppa.
-- When the pull request is merged, run the test again. (Because the hash of the latest commit will change)
